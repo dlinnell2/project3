@@ -7,4 +7,8 @@ const path = require("path");
 router.use("/admin", adminRoutes);
 router.use("/employee", employeeRoutes);
 
+router.route('/hello').get(((req, res) => {
+    res.send({ express: 'Hello From Express' });
+  }));
+
 module.exports = router;

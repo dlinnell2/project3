@@ -2,20 +2,15 @@ const express = require('express');
 const path = require('path');
 const mongoose = require("mongoose");
 const fileUpload = require('express-fileupload');
+const routes = require("./routes");
 const app = express();
 const port = process.env.PORT || 5000;
-const routes = ("./routes")
 
 //Define middleware
 app.use(express.json());
 app.use(fileUpload());
 
-// API calls
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
 
-// API Routes
 app.use(routes);
 
 // Connect to the Mongo DB

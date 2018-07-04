@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const employeeController = require("../../controllers/employeeController");
-const recognizer = require("../../recognizer/recognizer")
+//const employeeController = require("../../controllers/employeeController");
+//const recognizer = require("../../recognizer/recognizer")
 
-// Matches with "/api/admin/all"
+/* // Matches with "/api/admin/all"
 router.route("/all")
   .get(employeeController.findAll);
 
@@ -27,5 +27,7 @@ router.route("/add")
 
 router.route("/delete/:user")
   .get(employeeController.remove);
+
+  */
 
 module.exports = router;
