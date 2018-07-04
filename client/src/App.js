@@ -1,45 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Employee from "./pages/Employee";
+import Admin from "./pages/Admin";
+import Login from "./pages/Login";
 
-class App extends Component {
+const App = () => (
 
-  state = {
-    response: ''
-  };
+  <Router>
+    <div>
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
+      <Route exact path="/" component={Employee} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/admin" component={Admin} />
 
-  console = (e) => {
-    console.log('click')
-  }
-
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          {this.state.response}
-        </p>
-        <button type='button' onClick={this.console}>Test it out!</button>
-      </div>
-    );
-  }
-}
+    </div>
+  </Router>
+);
 
 export default App;
