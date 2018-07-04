@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
 
@@ -12,6 +11,10 @@ class App extends Component {
     this.callApi()
       .then(res => this.setState({ response: res.express }))
       .catch(err => console.log(err));
+  }
+
+  console = (e) => {
+    console.log('click')
   }
 
   callApi = async () => {
@@ -33,6 +36,7 @@ class App extends Component {
         <p className="App-intro">
           {this.state.response}
         </p>
+        <button type='button' onClick={this.console}>Test it out!</button>
       </div>
     );
   }
