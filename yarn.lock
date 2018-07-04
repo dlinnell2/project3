@@ -116,6 +116,10 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
+dlib-build@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/dlib-build/-/dlib-build-0.1.1.tgz#d60fdd91a3f0450b2a11586c7b1dac94065d1727"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -176,6 +180,19 @@ express@^4.16.2:
     type-is "~1.6.16"
     utils-merge "1.0.1"
     vary "~1.1.2"
+
+face-recognition-models@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/face-recognition-models/-/face-recognition-models-0.0.0.tgz#9eb3068356a7db9504bee5cbe5b25b7bffe03582"
+
+face-recognition@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/face-recognition/-/face-recognition-0.9.3.tgz#2e188c1e984477da262c80d29ccdd358fe4bb8f1"
+  dependencies:
+    dlib-build "^0.1.1"
+    face-recognition-models "0.0.0"
+    nan "^2.7.0"
+    native-node-utils "0.0.4"
 
 finalhandler@1.1.1:
   version "1.1.1"
@@ -299,6 +316,16 @@ mime@1.4.1:
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
+
+nan@^2.7.0, nan@^2.8.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
+
+native-node-utils@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/native-node-utils/-/native-node-utils-0.0.4.tgz#9b739e589da441f9b4716de1054c3d53a0894198"
+  dependencies:
+    nan "^2.8.0"
 
 negotiator@0.6.1:
   version "0.6.1"
