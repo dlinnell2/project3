@@ -1,6 +1,6 @@
 const router = require("express").Router();
 //const employeeController = require("../../controllers/employeeController");
-//const recognizer = require("../../recognizer/recognizer")
+const recognizer = require("../../recognizer/recognizer")
 
 /* // Matches with "/api/admin/all"
 router.route("/all")
@@ -18,11 +18,11 @@ router.route("/add/images").post((req, res) => {
   })
 })
 
-  /*
   // Matches with "/api/admin/add/recognize"
   router.route("/add/recognize")
-    .get(recognizer.addNew);
+    .post(recognizer.addNew);
   
+    /*
   // Matches with "/api/admin/add"
   router.route("/add")
     .get(employeeController.create);

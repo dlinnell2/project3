@@ -6,10 +6,13 @@ const path = require('path')
 
 module.exports = {
     addNew: function (req, res) {
+        console.log(req.body);
         fs.readdir(`${__dirname}/addEmpImages`, (err, files) => {
             if (err) console.log(err);
 
-            if (files.length < 0) {
+            console.log(files);
+
+            if (files.length > 0) {
 
                 let faces = [];
 
@@ -20,26 +23,27 @@ module.exports = {
                     faces.push(detectedImage[0]);
                 })
 
-                console.log(faces);
-
-                if (fs.existsSync('./model.json')) {
-                    const savedModel = require('model.json')
+                if (fs.existsSync(path.join(__dirname, 'model.json'))) {
+                    console.log('found');
+                    const savedModel = require(path.join(__dirname,'model.json'))
                     recognizer.load(savedModel)
                 }
 
-                recognizer.addFaces(faces, 'req.body.firstName req.body.lastName')
+                recognizer.addFaces(faces, `${req.body.firstName} ${req.body.lastName}`)
                     .then(
+                        () => {
+                            const modelState = recognizer.serialize();
+                            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
+                        },
                         files.forEach(file => {
                             fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
                                 if (err) console.log(err);
                             })
                         }),
-                        () => {
-                            const modelState = recognizer.serialize();
-                            fs.writeFileSync('model.json', JSON.stringify(modelState));
-                        }
 
                 )
+
+                res.send('added to recognizer');
 
             } else {
                 res.send('no images');

@@ -1,4 +1,5 @@
 import React from 'react';
+import API from '../../utils/api.js'
 
 
 class AddEmployee extends React.Component {
@@ -7,6 +8,8 @@ class AddEmployee extends React.Component {
         images: 0,
         firstName: '',
         lastName: '',
+        error: '',
+        status:''
     };
 
     handleInputChange = (e) => {
@@ -19,6 +22,8 @@ class AddEmployee extends React.Component {
     handleUploadImage = (e) => {
         e.preventDefault();
 
+        if(this.uploadInput.files[0]){
+
         const data = new FormData();
         data.append('file', this.uploadInput.files[0]);
 
@@ -27,12 +32,43 @@ class AddEmployee extends React.Component {
             body: data,
         }).then((res) => {
             console.log(res);
-            this.setState({ images: this.state.images + 1 })
+            this.setState({ 
+                images: this.state.images + 1, 
+                error:''
+            });
         });
+
+    } else {
+        this.setState({error:'Please select a image to upload'})
     }
 
-    click = () => {
-        console.log('click');
+    
+    }
+
+    addNewEmployee = (e) => {
+
+        if (this.state.images > 0 && this.state.firstName && this.state.lastName){
+
+        this.setState({status:'Adding new employee, please wait'})
+        console.log('click')
+        let data = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+        }
+
+        API.recognizeEmployee(data)
+            .then(recognizeRes => {
+                this.setState({status:'Employee successfully added'})
+                console.log(recognizeRes)
+            })
+
+        } else if (this.state.images < 1){
+            this.setState({error:`Please enter the employee's images`})
+        } else if (!this.state.firstName){
+            this.setState({error:`Please enter the employee's first name`})
+        } else if (!this.state.lastName){
+            this.setState({error:`Please enter the employee's last name`})
+        }
     }
 
     render() {
@@ -75,8 +111,11 @@ class AddEmployee extends React.Component {
                     <h4>You have successfully uploaded {this.state.images} {this.state.images === 1 ? 'image' : 'images'}</h4>
                     <br />
 
+                    <h3 className='text-danger'>{this.state.error}</h3> 
+                    <h3 className='text-info'>{this.state.status}</h3> 
+
                 </form>
-                <button type='button' onClick={this.click}>Test</button>
+                <button type='button' onClick={this.addNewEmployee}>Test</button>
             </div>
         )
     }
