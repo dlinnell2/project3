@@ -63,8 +63,7 @@ class AddEmployee extends React.Component {
 
         if (this.state.images > 0 && this.state.firstName && this.state.lastName) {
 
-            this.setState({ status: 'Adding new employee, please wait' })
-            console.log('click')
+            this.setState({ status: 'Adding new employee, please wait' });
             let data = {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
@@ -91,6 +90,7 @@ class AddEmployee extends React.Component {
 
     render() {
         return (
+
             <div>
                 <form onSubmit={this.handleUploadImage} className="center">
 
