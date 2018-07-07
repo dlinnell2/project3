@@ -32,34 +32,27 @@ module.exports = {
                 recognizer.addFaces(faces, `${req.body.firstName} ${req.body.lastName}`)
                     .then(
 
-                        res.send('added to recognizer')
+                        files.forEach(file => {
+                            fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
+                                if (err) console.log(err);
+                            })
+                        }), () => {
+                            const modelState = recognizer.serialize();
+                            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
+                        }, res.sendStatus(200)
 
                     );
 
 
-            } else {
-                res.send('no images');
-            }
-
-        })
-
-    },
-
-    saveState: function (req, res) {
-        fs.readdir(`${__dirname}/addEmpImages`, (err, files) => {
-            files.forEach(file => {
-                fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
-                    if (err) console.log(err);
-                })
-            })
-        }, () => {
-            const modelState = recognizer.serialize();
-            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
-        }), res.sendStatus(200);
-
-    },
-
-    identify: function (req, res) {
-        console.log(req.files);
+    } else {
+        res.send('no images');
     }
+
+})
+
+    },
+
+identify: function (req, res) {
+    console.log(req.files);
+}
 };

@@ -59,7 +59,10 @@ class AddEmployee extends React.Component {
             API.recognizeEmployee(data)
                 .then(recognizeRes => {
                     console.log('recognized')
-
+                    API.addEmployeeToDb(data)
+                        .then( dbRes => {
+                            console.log('added to db', dbRes);
+                        })
                 })
 
         } else if (this.state.images < 1) {
