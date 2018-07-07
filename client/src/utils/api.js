@@ -8,7 +8,7 @@ export default {
     },
 
     addEmployeeToDb: (data) => {
-        console.log('api');
+        console.log('add to db');
         return axios.post('/api/admin/add', data);
     },
 
