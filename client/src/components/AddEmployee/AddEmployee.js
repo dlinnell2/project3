@@ -72,7 +72,7 @@ class AddEmployee extends React.Component {
 
             API.recognizeEmployee(data)
                 .then(recognizeRes => {
-                    console.log('recognized')
+                    console.log('recognizeRes')
                     API.addEmployeeToDb(data)
                         .then( dbRes => {
                             console.log('added to db', dbRes);

@@ -21,7 +21,6 @@ class Employee extends React.Component {
             console.log(res);
         });
 
-
     }
 
     render() {
