@@ -9,7 +9,8 @@ class AddEmployee extends React.Component {
         firstName: '',
         lastName: '',
         error: '',
-        status: ''
+        status: '',
+        fileList: []
     };
 
     handleInputChange = (e) => {
@@ -19,13 +20,24 @@ class AddEmployee extends React.Component {
         });
     }
 
+    trackFiles = (e) => {
+        let trackedFiles = []
+        for (let i=0; i < this.uploadInput.files.length; i++){
+            trackedFiles.push(this.uploadInput.files[i])
+        }
+
+        this.setState({fileList:trackedFiles})
+    }
+
     handleUploadImage = (e) => {
         e.preventDefault();
 
-        if (this.uploadInput.files[0]) {
+        if (this.state.fileList.length >= 1) {
 
-            const data = new FormData();
-            data.append('file', this.uploadInput.files[0]);
+            this.state.fileList.forEach( (file) => {
+
+            let data = new FormData();
+            data.append('file', file);
 
             fetch('/api/admin/add/images', {
                 method: 'POST',
@@ -37,6 +49,8 @@ class AddEmployee extends React.Component {
                     error: ''
                 });
             });
+
+        })
 
         } else {
             this.setState({ error: 'Please select a image to upload' })
@@ -100,9 +114,10 @@ class AddEmployee extends React.Component {
 
                     <h3>Please select images to upload</h3>
                     <h4> A minimum of 5 is suggested </h4>
+                    <h5>You may upload files individually, or select multiple at a time</h5>
 
                     <div className="btn btn-success">
-                        <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+                        <input ref={(ref) => { this.uploadInput = ref; }} type="file" multiple onChange={this.trackFiles}/>
                     </div>
 
                     <br /><br />
