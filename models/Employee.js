@@ -7,18 +7,15 @@ var EmployeeSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    required: true
   },
 
   lastName: {
     type: String,
     required: true,
-    unique:true
   },
 
   clockTimes: [{
-    type: String,
-    unique: true
+    type: String
   }]
 
 },{

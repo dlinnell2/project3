@@ -62,6 +62,7 @@ class AddEmployee extends React.Component {
                     API.addEmployeeToDb(data)
                         .then( dbRes => {
                             console.log('added to db', dbRes);
+                            this.setState({status: `${dbRes.data.firstName} ${dbRes.data.lastName} successfully added!`})
                         })
                 })
 

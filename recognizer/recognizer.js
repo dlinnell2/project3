@@ -32,14 +32,17 @@ module.exports = {
                 recognizer.addFaces(faces, `${req.body.firstName} ${req.body.lastName}`)
                     .then(
 
+                        () => {
+                            const modelState = recognizer.serialize();
+                            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
+                            console.log('saved');
+                        },
+
                         files.forEach(file => {
                             fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
                                 if (err) console.log(err);
                             })
-                        }), () => {
-                            const modelState = recognizer.serialize();
-                            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
-                        }, res.sendStatus(200)
+                        }), res.sendStatus(200)
 
                     );
 

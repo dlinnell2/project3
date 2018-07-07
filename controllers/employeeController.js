@@ -13,8 +13,8 @@ module.exports = {
     console.log(req.body);
     db.Employee
       .create({
-        firstName:'test',
-        lastName:'person'
+        firstName:req.body.firstName,
+        lastName:req.body.lastName
       })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
