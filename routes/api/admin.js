@@ -1,11 +1,11 @@
 const router = require("express").Router();
-//const employeeController = require("../../controllers/employeeController");
+const employeeController = require("../../controllers/employeeController");
 const recognizer = require("../../recognizer/recognizer")
 
-/* // Matches with "/api/admin/all"
+// Matches with "/api/admin/all"
 router.route("/all")
   .get(employeeController.findAll);
-  */
+  
 
 //Matches with "/api/admin/add/images"
 router.route("/add/images").post((req, res) => {
@@ -22,14 +22,14 @@ router.route("/add/images").post((req, res) => {
   router.route("/add/recognize")
     .post(recognizer.addNew);
   
-    /*
-  // Matches with "/api/admin/add"
+
   router.route("/add")
-    .get(employeeController.create);
+    .post(employeeController.create);
+
+
   
   router.route("/delete/:user")
     .get(employeeController.remove);
   
-    */
 
   module.exports = router;

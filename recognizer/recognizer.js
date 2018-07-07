@@ -2,7 +2,7 @@ const fr = require('face-recognition');
 const detector = fr.FaceDetector();
 const recognizer = fr.AsyncFaceRecognizer();
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 module.exports = {
     addNew: function (req, res) {
@@ -25,31 +25,37 @@ module.exports = {
 
                 if (fs.existsSync(path.join(__dirname, 'model.json'))) {
                     console.log('found');
-                    const savedModel = require(path.join(__dirname,'model.json'))
+                    const savedModel = require(path.join(__dirname, 'model.json'))
                     recognizer.load(savedModel)
                 }
 
                 recognizer.addFaces(faces, `${req.body.firstName} ${req.body.lastName}`)
                     .then(
-                        () => {
-                            const modelState = recognizer.serialize();
-                            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
-                        },
-                        files.forEach(file => {
-                            fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
-                                if (err) console.log(err);
-                            })
-                        }),
 
-                )
+                        res.send('added to recognizer')
 
-                res.send('added to recognizer');
+                    );
+
 
             } else {
                 res.send('no images');
             }
 
         })
+
+    },
+
+    saveState: function (req, res) {
+        fs.readdir(`${__dirname}/addEmpImages`, (err, files) => {
+            files.forEach(file => {
+                fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
+                    if (err) console.log(err);
+                })
+            })
+        }, () => {
+            const modelState = recognizer.serialize();
+            fs.writeFileSync(path.join(__dirname, 'model.json'), JSON.stringify(modelState));
+        }), res.sendStatus(200);
 
     },
 
