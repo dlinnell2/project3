@@ -42,7 +42,7 @@ module.exports = {
                             fs.unlink(`${__dirname}/addEmpImages/${file}`, (err) => {
                                 if (err) console.log(err);
                             })
-                        }), res.sendStatus(200), console.log('change')
+                        }), res.sendStatus(200)
 
                     );
 
