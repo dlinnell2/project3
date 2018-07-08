@@ -19,6 +19,12 @@
     text-align: center;
 }
 
+.webcam {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
 .center {
     text-align: center;
 }

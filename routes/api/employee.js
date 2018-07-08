@@ -8,6 +8,6 @@ router.route("/")
 
 // Matches with "/employee/identify"
 router.route("/identify")
-    .get(recognizer.identify);
+    .post(recognizer.identify);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Webcam from 'react-webcam';
 import API from '../../utils/api.js'
 
 
@@ -8,35 +9,47 @@ class Employee extends React.Component {
         message: ''
     }
 
-    handleUploadImage = (e) => {
+    setRef = (webcam) => {
+        this.webcam = webcam;
+    }
+
+    capture = (e) => {
         e.preventDefault();
+        const imageSrc = this.webcam.getScreenshot();
+        console.log(imageSrc)
 
-
-        let data = new FormData();
-        data.append('file', this.uploadInput.files[0]);
+        var data = new FormData();
+        data.append("image_data", imageSrc);
 
         fetch('/api/employee/identify', {
-            method: 'GET'
+            method: 'post',
+            body: data
         }).then((res) => {
             console.log(res);
         });
-
-    }
+    };
 
     render() {
+
+        const videoConstraints = {
+            width: 1280,
+            height: 720,
+            facingMode: 'user',
+        };
+
         return (
             <div>
-                <form onSubmit={this.handleUploadImage} className="center">
 
-                    <div className="btn btn-success">
-                        <input ref={(ref) => { this.uploadInput = ref; }} type="file" multiple onChange={this.trackFiles} />
-                    </div>
-
-                    <div>
-                        <button className="btn btn-primary">Upload</button>
-                    </div>
-
-                </form>
+                <Webcam
+                    audio={false}
+                    height={550}
+                    ref={this.setRef}
+                    screenshotFormat="image/jpeg"
+                    width={550}
+                    videoConstraints={videoConstraints}
+                    className='webcam'
+                />
+                <button onClick={this.capture} className='webcam'>Capture photo</button>
 
             </div>
 

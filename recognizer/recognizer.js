@@ -57,6 +57,7 @@ module.exports = {
 
 identify: function (req, res) {
     console.log('hit');
+    console.log(req.body);
     res.send('hit');
 }
 };
