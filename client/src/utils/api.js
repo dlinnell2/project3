@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
 
-    recognizeEmployee: (data) => {
+    recognizeNewEmployee: (data) => {
         console.log('api');
         return axios.post("/api/admin/add/recognize", data);
     },
@@ -13,7 +13,11 @@ export default {
     },
 
     pullTimes: () => {
-        return axios.get('api/admin/all');
+        return axios.get('/api/admin/all');
+    },
+
+    recognizeEmployee: (data) => {
+        return axios.post('/api/employee/identify', data);
     }
 
 }

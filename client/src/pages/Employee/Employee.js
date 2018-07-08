@@ -21,12 +21,10 @@ class Employee extends React.Component {
         var data = new FormData();
         data.append("image_data", imageSrc);
 
-        fetch('/api/employee/identify', {
-            method: 'post',
-            body: data
-        }).then((res) => {
-            console.log(res);
-        });
+        API.recognizeEmployee(data)
+            .then( recognizeRes => {
+                console.log(recognizeRes);
+            })
     };
 
     render() {

@@ -69,7 +69,7 @@ class AddEmployee extends React.Component {
                 lastName: this.state.lastName,
             }
 
-            API.recognizeEmployee(data)
+            API.recognizeNewEmployee(data)
                 .then(recognizeRes => {
                     console.log('recognizeRes')
                     API.addEmployeeToDb(data)
