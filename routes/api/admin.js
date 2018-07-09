@@ -5,7 +5,7 @@ const recognizer = require("../../recognizer/recognizer")
 // Matches with "/api/admin/all"
 router.route("/all")
   .get(employeeController.findAll);
-  
+
 
 //Matches with "/api/admin/add/images"
 router.route("/add/images").post((req, res) => {
@@ -16,20 +16,23 @@ router.route("/add/images").post((req, res) => {
 
     res.sendStatus(200);
   })
-})
+}),
 
-  // Matches with "/api/admin/add/recognize"
-  router.route("/add/recognize")
-    .post(recognizer.addNew);
-  
+// Matches with "/api/admin/add/recognize"
+router.route("/add/recognize")
+  .post(recognizer.addNew);
 
-  router.route("/add")
-    .post(employeeController.create);
+// Matches with "/api/admin/saveRecognizer"
+router.route('/saveRecognizer')
+  .get(recognizer.saveState);
+
+router.route("/add")
+  .post(employeeController.create);
 
 
-  
-  router.route("/delete/:user")
-    .get(employeeController.remove);
-  
 
-  module.exports = router;
+router.route("/delete/:user")
+  .get(employeeController.remove);
+
+
+module.exports = router;

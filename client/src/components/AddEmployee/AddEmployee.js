@@ -22,11 +22,11 @@ class AddEmployee extends React.Component {
 
     trackFiles = (e) => {
         let trackedFiles = []
-        for (let i=0; i < this.uploadInput.files.length; i++){
+        for (let i = 0; i < this.uploadInput.files.length; i++) {
             trackedFiles.push(this.uploadInput.files[i])
         }
 
-        this.setState({fileList:trackedFiles})
+        this.setState({ fileList: trackedFiles })
     }
 
     handleUploadImage = (e) => {
@@ -34,23 +34,23 @@ class AddEmployee extends React.Component {
 
         if (this.state.fileList.length >= 1) {
 
-            this.state.fileList.forEach( (file) => {
+            this.state.fileList.forEach((file) => {
 
-            let data = new FormData();
-            data.append('file', file);
+                let data = new FormData();
+                data.append('file', file);
 
-            fetch('/api/admin/add/images', {
-                method: 'POST',
-                body: data,
-            }).then((res) => {
-                console.log(res);
-                this.setState({
-                    images: this.state.images + 1,
-                    error: ''
+                fetch('/api/admin/add/images', {
+                    method: 'POST',
+                    body: data,
+                }).then((res) => {
+                    console.log(res);
+                    this.setState({
+                        images: this.state.images + 1,
+                        error: ''
+                    });
                 });
-            });
 
-        })
+            })
 
         } else {
             this.setState({ error: 'Please select a image to upload' })
@@ -67,15 +67,19 @@ class AddEmployee extends React.Component {
             let data = {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
+                fullName: `${this.state.firstName} ${this.state.lastName}`
             }
 
             API.recognizeNewEmployee(data)
                 .then(recognizeRes => {
                     console.log('recognizeRes')
                     API.addEmployeeToDb(data)
-                        .then( dbRes => {
-                            console.log('added to db', dbRes);
-                            this.setState({status: `${dbRes.data.firstName} ${dbRes.data.lastName} successfully added!`})
+                        .then(dbRes => {
+                            API.saveState()
+                                .then(res => {
+                                    this.setState({ status: `${dbRes.data.firstName} ${dbRes.data.lastName} successfully added!` })
+
+                                })
                         })
                 })
 
@@ -117,7 +121,7 @@ class AddEmployee extends React.Component {
                     <h5>You may upload files individually, or select multiple at a time</h5>
 
                     <div className="btn btn-success">
-                        <input ref={(ref) => { this.uploadInput = ref; }} type="file" multiple onChange={this.trackFiles}/>
+                        <input ref={(ref) => { this.uploadInput = ref; }} type="file" multiple onChange={this.trackFiles} />
                     </div>
 
                     <br /><br />

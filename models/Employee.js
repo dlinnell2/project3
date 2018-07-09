@@ -14,6 +14,11 @@ var EmployeeSchema = new Schema({
     required: true,
   },
 
+  fullName: {
+    type: String,
+    required: true,
+  },
+
   clockTimes: [{
     type: String
   }]

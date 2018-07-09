@@ -12,6 +12,10 @@ export default {
         return axios.post('/api/admin/add', data);
     },
 
+    saveState: () => {
+        return axios.get('/api/admin/saveRecognizer');
+    },
+
     pullTimes: () => {
         return axios.get('/api/admin/all');
     },
