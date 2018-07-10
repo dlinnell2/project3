@@ -33,6 +33,10 @@ class AddEmployee extends React.Component {
     handleUploadImage = (e) => {
         e.preventDefault();
 
+        this.setState({
+            status:'Uploading images, please wait',
+        })
+
         console.log(this);
 
         if (this.state.fileList.length >= 1) {
@@ -54,7 +58,8 @@ class AddEmployee extends React.Component {
                             console.log(res);
                             this.setState({
                                 images: this.state.images + 1,
-                                error: ''
+                                error: '',
+                                status: ''
                             });
                         });
 
@@ -87,7 +92,10 @@ class AddEmployee extends React.Component {
                         .then(dbRes => {
                             API.saveState()
                                 .then(res => {
-                                    this.setState({ status: `${dbRes.data.firstName} ${dbRes.data.lastName} successfully added!` })
+                                    this.setState({ 
+                                    status: `${dbRes.data.fullName} successfully added!`,
+                                    images:0
+                                    })
 
                                 })
                         })
@@ -134,21 +142,24 @@ class AddEmployee extends React.Component {
                         <input ref={(ref) => { this.uploadInput = ref; }} type="file" multiple onChange={this.trackFiles} />
                     </div>
 
-                    <br /><br />
+                    <br /> <br />
 
                     <div>
                         <button className="btn btn-primary">Upload</button>
                     </div>
 
                     <br />
+
                     <h4>You have successfully uploaded {this.state.images} {this.state.images === 1 ? 'image' : 'images'}</h4>
-                    <br />
+
 
                     <h3 className='text-danger'>{this.state.error}</h3>
                     <h3 className='text-info'>{this.state.status}</h3>
 
+                    <br />
+
                 </form>
-                <button type='button' onClick={this.addNewEmployee}>Test</button>
+                <button type='button' onClick={this.addNewEmployee} className='webcam btn btn-primary'>Add New Employee</button>
             </div>
         )
     }

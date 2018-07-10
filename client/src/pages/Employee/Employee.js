@@ -3,6 +3,7 @@ import Webcam from 'react-webcam';
 import API from '../../utils/api.js'
 
 
+
 class Employee extends React.Component {
 
     state = {
@@ -16,14 +17,14 @@ class Employee extends React.Component {
     capture = (e) => {
         e.preventDefault();
         const imageSrc = this.webcam.getScreenshot();
-        console.log(imageSrc)
 
         var data = new FormData();
         data.append("image_data", imageSrc);
 
         API.recognizeEmployee(data)
             .then( recognizeRes => {
-                console.log(recognizeRes);
+                console.log(recognizeRes.data.className);
+                this.setState({message: `Hello ${recognizeRes.data.className}!`})
             })
     };
 
@@ -48,6 +49,8 @@ class Employee extends React.Component {
                     className='webcam'
                 />
                 <button onClick={this.capture} className='webcam'>Capture photo</button>
+
+                <h3 className = 'text-info center'>{this.state.message}</h3>
 
             </div>
 

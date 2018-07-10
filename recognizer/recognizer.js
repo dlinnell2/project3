@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const base64ToImage = require('base64-to-image');
 
+
 module.exports = {
     addNew: function (req, res) {
         console.log(req.body);
@@ -55,21 +56,34 @@ module.exports = {
         let pathName = path.join(__dirname, 'clockInImages', 'image');
         base64ToImage(base64, pathName);
 
-        fs.readdir(`${__dirname}/clockInImages`, (err, files) => {
-            if (err) console.log(err);
+        setTimeout(() => {
+            fs.readdir(`${__dirname}/clockInImages`, (err, files) => {
+                if (err) console.log(err);
 
-            console.log(files);
+                console.log(files);
 
-            let detectedFace = detector.detectFaces(files[0]);
+                let image = fr.loadImage(`${__dirname}/clockInImages/${files[0]}`)
+                let detectedFace = detector.detectFaces(image);
 
-            const savedModel = require(path.join(__dirname, 'model.json'))
-            recognizer.load(savedModel)
+                console.log(detectedFace);
 
-            const bestPrediction = recognizer.predictBest(detecedFace)
-            console.log(bestPrediction)
+                const savedModel = require(path.join(__dirname, 'model.json'))
+                recognizer.load(savedModel)
 
 
-        })
+                recognizer.predictBest(detectedFace[0])
+                    .then((bestPrediction) => {
+                        res.json(bestPrediction)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+
+
+
+            })
+
+        }, 200);
     },
 
     saveState: function (req, res) {
