@@ -1,5 +1,6 @@
 import React from 'react';
-import API from '../../utils/api.js'
+import API from '../../utils/api.js';
+import ImageCompressor from 'image-compressor.js';
 
 
 class AddEmployee extends React.Component {
@@ -32,23 +33,32 @@ class AddEmployee extends React.Component {
     handleUploadImage = (e) => {
         e.preventDefault();
 
+        console.log(this);
+
         if (this.state.fileList.length >= 1) {
 
             this.state.fileList.forEach((file) => {
 
-                let data = new FormData();
-                data.append('file', file);
+                const imageCompressor = new ImageCompressor();
 
-                fetch('/api/admin/add/images', {
-                    method: 'POST',
-                    body: data,
-                }).then((res) => {
-                    console.log(res);
-                    this.setState({
-                        images: this.state.images + 1,
-                        error: ''
-                    });
-                });
+                imageCompressor.compress(file, {width: 400, quality:0.8})
+                    .then((result) => {
+                        const formData = new FormData();
+
+                        formData.append('file', result, result.name);
+
+                        fetch('/api/admin/add/images', {
+                            method: 'POST',
+                            body: formData,
+                        }).then((res) => {
+                            console.log(res);
+                            this.setState({
+                                images: this.state.images + 1,
+                                error: ''
+                            });
+                        });
+
+                    })
 
             })
 

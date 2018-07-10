@@ -13,6 +13,7 @@ export default {
     },
 
     saveState: () => {
+        console.log('save state')
         return axios.get('/api/admin/saveRecognizer');
     },
 
