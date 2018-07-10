@@ -23,6 +23,10 @@ export default {
 
     recognizeEmployee: (data) => {
         return axios.post('/api/employee/identify', data);
+    },
+
+    clockIn: (data) => {
+       return axios.post('/api/employee', data) 
     }
 
 }

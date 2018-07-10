@@ -19,10 +19,6 @@ var EmployeeSchema = new Schema({
     required: true,
   },
 
-  clockTimes: [{
-    type: String
-  }]
-
 },{
     timestamps : true
 });

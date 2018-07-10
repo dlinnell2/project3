@@ -23,8 +23,10 @@ class Employee extends React.Component {
 
         API.recognizeEmployee(data)
             .then( recognizeRes => {
-                console.log(recognizeRes.data.className);
-                this.setState({message: `Hello ${recognizeRes.data.className}!`})
+                API.clockIn({name:recognizeRes.data.className})
+                    .then( dbRes => {
+                        this.setState({message: `Hello ${dbRes.data.name}!`})
+                    })
             })
     };
 
@@ -49,6 +51,8 @@ class Employee extends React.Component {
                     className='webcam'
                 />
                 <button onClick={this.capture} className='webcam'>Capture photo</button>
+
+                <br />
 
                 <h3 className = 'text-info center'>{this.state.message}</h3>
 

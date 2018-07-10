@@ -73,13 +73,13 @@ module.exports = {
 
                 recognizer.predictBest(detectedFace[0])
                     .then((bestPrediction) => {
-                        res.json(bestPrediction)
+                        fs.unlink(`${__dirname}/clockInImages/${files[0]}`, (err) =>{
+                            res.json(bestPrediction);
+                        })
                     })
                     .catch((error) => {
                         console.log(error)
                     })
-
-
 
             })
 
