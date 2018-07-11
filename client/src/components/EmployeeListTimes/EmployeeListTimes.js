@@ -1,6 +1,7 @@
 import React from 'react';
 import API from '../../utils/api.js';
 import FunctionButton from '../FunctionButton';
+import moment from 'moment';
 
 class EmployeeListTimes extends React.Component {
 
@@ -58,7 +59,7 @@ class EmployeeListTimes extends React.Component {
 
                     {this.state.times.map((time) => (
                         <div className='row justify-content-center'>
-                            <h3>{time.createdAt}</h3>
+                            <h4>{moment(time.createdAt).format('ddd, MMMM Do YYYY, h:mm:ss a')}</h4>
                         </div>
                     ))}
 

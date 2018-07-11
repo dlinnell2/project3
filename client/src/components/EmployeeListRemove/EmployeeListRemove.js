@@ -1,5 +1,4 @@
 import React from 'react';
-import API from '../../utils/api.js';
 import FunctionButton from '../FunctionButton';
 
 class EmployeeListRemove extends React.Component {

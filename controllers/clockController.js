@@ -12,7 +12,7 @@ module.exports = {
 
     pullTimes: function(req, res){
         db.ClockIn
-            .find(req.body)
+            .find(req.body, null, {sort: {createdAt:-1}})
             .then((dbModel) => res.json(dbModel))
             .catch((err) => res.status(422).json(err));
     },
