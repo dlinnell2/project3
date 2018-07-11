@@ -1,1 +1,1 @@
-export {default} from "./RemoveEmployee.js"
+export {default} from './RemoveEmployee'

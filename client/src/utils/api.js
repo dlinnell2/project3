@@ -17,8 +17,12 @@ export default {
         return axios.get('/api/admin/saveRecognizer');
     },
 
-    pullTimes: () => {
+    getAll: () => {
         return axios.get('/api/admin/all');
+    },
+
+    getTimes: (name) => {
+        return axios.post(`/api/admin/pull`, name)
     },
 
     recognizeEmployee: (data) => {

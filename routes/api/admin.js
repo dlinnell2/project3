@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const employeeController = require("../../controllers/employeeController");
 const recognizer = require("../../recognizer/recognizer")
+const clockController = require("../../controllers/clockController");
 
 // Matches with "/api/admin/all"
 router.route("/all")
@@ -29,7 +30,8 @@ router.route('/saveRecognizer')
 router.route("/add")
   .post(employeeController.create);
 
-
+router.route("/pull")
+  .post(clockController.pullTimes);
 
 router.route("/delete/:user")
   .get(employeeController.remove);
