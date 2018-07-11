@@ -6,7 +6,7 @@ class RemoveEmployee extends React.Component {
 
     state = {
         employees: [],
-        message: ''
+        noEmployees: false,
     };
 
     componentDidMount() {
@@ -14,42 +14,63 @@ class RemoveEmployee extends React.Component {
     }
 
     pullEmployees = () => {
+        console.log('checking')
         API.getAll()
             .then((res) => {
-                this.setState({ employees: res.data })
+                console.log(res)
+                if (res.data.length > 0) {
+                    this.setState({ employees: res.data })
+                } else if (res.data.length === 0) {
+                    this.setState({ 
+                        noEmployees: true,
+                        employees: res.data
+                    })
+                }
             })
     }
 
-    refresh = (name) => {
-        API.getAll()
+    refresh = (employee) => {
+        API.deleteEmployee({fullName:employee})
             .then((res) => {
-                this.setState({ 
-                    employees: res.data,
-                    message: `${name} successfully removed`
-                 })
+                console.log(res)
+                API.deleteTimes({name:employee})
+                    .then((res) => {
+                        console.log(res)
+                        this.pullEmployees()
+                    })
             })
     }
 
-    render () {
+    checkEmployees = () => {
+        if (this.state.employees.length) {
+            return (
+                <div>
+
+                    {this.state.employees.map((employee) => (
+
+                        <EmployeeListRemove refresh={() => this.refresh(employee.fullName)} employee={employee} />
+
+                    ))}
+
+                </div>
+            )
+        } else if (this.state.noEmployees) {
+            return (
+                <h3 className='center text-danger'>No employees have been found</h3>
+            )
+        } else {
+            return (
+                <h3 className='center text-info'>Retrieving information, please wait</h3>
+            )
+        }
+    }
+
+    render() {
         return (
 
             <div className='container'>
 
-                {this.state.employees.length ? (
-
-                    <div>
-
-                        {this.state.employees.map((employee) => (
-
-                                <EmployeeListRemove refresh={() => this.refresh()} employee={employee} />
-
-                        ))}
-
-                    </div>
-
-                ) : (<h3 className='center text-info'>Retrieving information, please wait</h3>)}
-
-                <h3 className='text-info'>{this.state.message}</h3>
+                {this.checkEmployees()}
 
             </div>
         )

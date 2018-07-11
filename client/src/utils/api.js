@@ -25,6 +25,15 @@ export default {
         return axios.post(`/api/admin/pull`, name)
     },
 
+    deleteEmployee: (name) => {
+        console.log(name)
+        return axios.post('/api/admin/delete/employee', name)
+    },
+
+    deleteTimes: (name) => {
+        return axios.post('/api/admin/delete/times', name)
+    },
+
     recognizeEmployee: (data) => {
         return axios.post('/api/employee/identify', data);
     },

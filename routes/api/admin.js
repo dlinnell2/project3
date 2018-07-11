@@ -19,9 +19,9 @@ router.route("/add/images").post((req, res) => {
   })
 }),
 
-// Matches with "/api/admin/add/recognize"
-router.route("/add/recognize")
-  .post(recognizer.addNew);
+  // Matches with "/api/admin/add/recognize"
+  router.route("/add/recognize")
+    .post(recognizer.addNew);
 
 // Matches with "/api/admin/saveRecognizer"
 router.route('/saveRecognizer')
@@ -33,8 +33,11 @@ router.route("/add")
 router.route("/pull")
   .post(clockController.pullTimes);
 
-router.route("/delete/:user")
-  .get(employeeController.remove);
+router.route("/delete/employee")
+  .post(employeeController.remove);
+
+router.route("/delete/times")
+  .post(clockController.remove);
 
 
 module.exports = router;
