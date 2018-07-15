@@ -25,10 +25,6 @@ RUN npm install
 # Return to top level directory of project
 WORKDIR /usr/src/app
 
-# Expose the port the app runs in
-EXPOSE 3000
-EXPOSE 27017
-
 WORKDIR /usr/src/app/server
 
 CMD ["npm", "build"]
