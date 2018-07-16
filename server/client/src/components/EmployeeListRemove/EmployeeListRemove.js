@@ -50,7 +50,7 @@ class EmployeeListRemove extends React.Component {
     render() {
         return (
 
-            <div className='row'>
+            <div className='row section'>
 
                 <div className='col-sm-5' align='center'>
 

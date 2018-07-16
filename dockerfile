@@ -14,17 +14,19 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
-# Move into AngularApp directory
-WORKDIR /usr/src/app/client
-# Install dependencies for AngularApp
-RUN npm install
-# Move into server directory
 WORKDIR /usr/src/app/server
 # Install dependencies for server
 RUN npm install
-# Return to top level directory of project
-WORKDIR /usr/src/app
 
+# Move into AngularApp directory
+WORKDIR /usr/src/app/server/client
+# Install dependencies for AngularApp
+RUN npm install
+
+# Move into server directory
 WORKDIR /usr/src/app/server
 
-CMD ["npm", "build"]
+RUN node scripts/build.js
+# Install dependencies for serve
+
+CMD ["npm", "start"]

@@ -88,7 +88,7 @@ class EmployeeListTimes extends React.Component {
 
         return (
 
-            <div className='row'>
+            <div className='row section'>
 
                 <div className='col-sm-6' align='center'>
 

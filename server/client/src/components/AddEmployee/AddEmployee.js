@@ -94,7 +94,9 @@ class AddEmployee extends React.Component {
                                 .then(res => {
                                     this.setState({ 
                                     status: `${dbRes.data.fullName} successfully added!`,
-                                    images:0
+                                    images:0,
+                                    firstName: '',
+                                    lastName: ''
                                     })
 
                                 })

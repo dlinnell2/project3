@@ -16,6 +16,7 @@ class Employee extends React.Component {
 
     capture = (e) => {
         e.preventDefault();
+        this.setState({message:'Recognizing, please wait'})
         const imageSrc = this.webcam.getScreenshot();
 
         var data = new FormData();
@@ -26,6 +27,9 @@ class Employee extends React.Component {
                 API.clockIn({name:recognizeRes.data.className})
                     .then( dbRes => {
                         this.setState({message: `Hello ${dbRes.data.name}!`})
+                        setTimeout(() => {
+                            this.setState({message: ''})
+                        }, 5000)
                     })
             })
     };
@@ -41,6 +45,8 @@ class Employee extends React.Component {
         return (
             <div>
 
+                <h3 className = 'text-info center'>{this.state.message}</h3>
+
                 <Webcam
                     audio={false}
                     height={550}
@@ -50,11 +56,9 @@ class Employee extends React.Component {
                     videoConstraints={videoConstraints}
                     className='webcam'
                 />
-                <button onClick={this.capture} className='webcam'>Capture photo</button>
+                <button onClick={this.capture} className='webcam btn btn-primary'>Clock In</button>
 
                 <br />
-
-                <h3 className = 'text-info center'>{this.state.message}</h3>
 
             </div>
 

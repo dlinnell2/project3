@@ -2,17 +2,17 @@
     "name": "example-create-react-app-express",
     "version": "1.0.0",
     "scripts": {
-        "client": "cd .. && cd client && npm start",
+        "client": "cd client && npm start",
         "server": "nodemon server.js",
         "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-        "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
         "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-        "build": "node scripts/build.js"
+        "start": "node server.js"
     },
     "dependencies": {
         "base64-to-image": "^1.0.2",
         "express": "^4.16.2",
         "express-fileupload": "^0.4.0",
+        "face-recognition": "^0.9.3",
         "mongoose": "^5.2.0",
         "nodemon": "^1.18.2",
         "yarn": "^1.7.0"
