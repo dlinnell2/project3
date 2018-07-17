@@ -3,7 +3,7 @@ const detector = fr.FaceDetector();
 const recognizer = fr.AsyncFaceRecognizer();
 const fs = require('fs');
 const path = require('path');
-const base64ToImage = require('base64-to-image');
+const base64img = require('base64-img')
 
 
 module.exports = {
@@ -53,10 +53,10 @@ module.exports = {
 
     identify: function (req, res) {
         let base64 = req.body.image_data;
-        let pathName = path.join(__dirname, 'clockInImages', 'image');
-        base64ToImage(base64, pathName);
+        let pathName = path.join(__dirname, 'clockInImages');
+        base64img.img(base64, pathName, 'image', (err, filepath) => {
 
-        setTimeout(() => {
+        
             fs.readdir(`${__dirname}/clockInImages`, (err, files) => {
                 if (err) console.log(err);
 
@@ -83,7 +83,7 @@ module.exports = {
 
             })
 
-        }, 200);
+        });
     },
 
     saveState: function (req, res) {
